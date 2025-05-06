@@ -14,7 +14,8 @@ psycopg2-binary==2.9.10
 # Redis and Queue
 redis==5.2.1
 rq==2.0.0
-rq-win @ git+https://github.com/michaelbrooks/rq-win.git@c6e65e38f8a6ca99a0c8e0dd6fe35f9b92837cca
+# Windows-specific RQ package (only needed on Windows)
+# rq-win @ git+https://github.com/michaelbrooks/rq-win.git@c6e65e38f8a6ca99a0c8e0dd6fe35f9b92837cca
 
 # Video Processing
 moviepy==2.1.2

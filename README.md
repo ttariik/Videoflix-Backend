@@ -27,27 +27,45 @@ This project was created by Tarik Sabanovic.
 
 ### Installation
 
-1. Clone the repository:
+#### macOS Installation
+
+1. Install Homebrew (if not already installed):
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+2. Install required system dependencies:
+```bash
+# Install PostgreSQL
+brew install postgresql
+brew services start postgresql
+
+# Install Redis
+brew install redis
+brew services start redis
+
+# Install FFmpeg
+brew install ffmpeg
+```
+
+3. Clone the repository:
 ```bash
 git clone [repository-url]
 cd VideoFlix-Backend
 ```
 
-2. Create and activate a virtual environment:
+4. Create and activate a virtual environment:
 ```bash
 python -m venv env
-# On Windows
-env\Scripts\activate
-# On Unix or MacOS
 source env/bin/activate
 ```
 
-3. Install dependencies:
+5. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Set up environment variables:
+6. Set up environment variables:
 Create a `.env` file in the root directory with the following variables:
 ```
 DEBUG=True
@@ -56,24 +74,21 @@ DATABASE_URL=postgresql://user:password@localhost:5432/videoflix
 REDIS_URL=redis://localhost:6379/0
 ```
 
-5. Run migrations:
+7. Run migrations:
 ```bash
 python manage.py migrate
 ```
 
-6. Create a superuser:
+8. Create a superuser:
 ```bash
 python manage.py createsuperuser
 ```
 
-### Running the Project
+### Running the Project on macOS
 
-1. Start Redis server:
+1. Start Redis server (if not running):
 ```bash
-# On Windows
-redis-server
-# On Unix or MacOS
-redis-server
+brew services start redis
 ```
 
 2. Start RQ worker:
@@ -158,27 +173,45 @@ Dieses Projekt wurde von Tarik Sabanovic erstellt.
 
 ### Installation
 
-1. Repository klonen:
+#### macOS Installation
+
+1. Homebrew installieren (falls noch nicht installiert):
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+2. Erforderliche Systemabhängigkeiten installieren:
+```bash
+# PostgreSQL installieren
+brew install postgresql
+brew services start postgresql
+
+# Redis installieren
+brew install redis
+brew services start redis
+
+# FFmpeg installieren
+brew install ffmpeg
+```
+
+3. Repository klonen:
 ```bash
 git clone [repository-url]
 cd VideoFlix-Backend
 ```
 
-2. Virtuelle Umgebung erstellen und aktivieren:
+4. Virtuelle Umgebung erstellen und aktivieren:
 ```bash
 python -m venv env
-# Unter Windows
-env\Scripts\activate
-# Unter Unix oder MacOS
 source env/bin/activate
 ```
 
-3. Abhängigkeiten installieren:
+5. Abhängigkeiten installieren:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Umgebungsvariablen einrichten:
+6. Umgebungsvariablen einrichten:
 Erstellen Sie eine `.env`-Datei im Hauptverzeichnis mit folgenden Variablen:
 ```
 DEBUG=True
@@ -187,24 +220,21 @@ DATABASE_URL=postgresql://user:password@localhost:5432/videoflix
 REDIS_URL=redis://localhost:6379/0
 ```
 
-5. Migrationen ausführen:
+7. Migrationen ausführen:
 ```bash
 python manage.py migrate
 ```
 
-6. Superuser erstellen:
+8. Superuser erstellen:
 ```bash
 python manage.py createsuperuser
 ```
 
-### Projekt starten
+### Projekt auf macOS starten
 
-1. Redis-Server starten:
+1. Redis-Server starten (falls nicht läuft):
 ```bash
-# Unter Windows
-redis-server
-# Unter Unix oder MacOS
-redis-server
+brew services start redis
 ```
 
 2. RQ-Worker starten:
