@@ -33,13 +33,14 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'False').lower() == 'true'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
 
 INSTALLED_APPS = [
     'corsheaders',
@@ -181,7 +182,12 @@ CACHES = {
         "LOCATION": os.getenv('REDIS', 'redis://localhost:6379/0'),
         "OPTIONS": {
             "PASSWORD": os.getenv('RQ_PASSWORD', None),
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "SOCKET_TIMEOUT": int(os.getenv('REDIS_SOCKET_TIMEOUT', 5)),
+            "SOCKET_CONNECT_TIMEOUT": int(os.getenv('REDIS_SOCKET_CONNECT_TIMEOUT', 5)),
+            "RETRY_ON_TIMEOUT": os.getenv('REDIS_RETRY_ON_TIMEOUT', 'True').lower() == 'true',
+            "MAX_CONNECTIONS": int(os.getenv('REDIS_MAX_CONNECTIONS', 10)),
+            "SSL": os.getenv('REDIS_USE_SSL', 'False').lower() == 'true',
         },
         "KEY_PREFIX": "videoflix"
     }
@@ -190,21 +196,24 @@ CACHES = {
 RQ = {
     'DEFAULT': {
         'HOST': os.getenv('LOCAL_HOST', 'localhost'),
-        'PORT': 6379,
-        'DB': 0,
+        'PORT': int(os.getenv('REDIS_PORT', 6379)),
+        'DB': int(os.getenv('REDIS_DB', 0)),
         'PASSWORD': os.getenv('RQ_PASSWORD', None),
-        'DEFAULT_TIMEOUT': 360,
+        'USERNAME': os.getenv('REDIS_USERNAME', 'default'),
+        'DEFAULT_TIMEOUT': int(os.getenv('RQ_DEFAULT_TIMEOUT', 360)),
+        'SSL': os.getenv('REDIS_USE_SSL', 'False').lower() == 'true',
     }
 }
-
 
 RQ_QUEUES = {
     'default': {
         'HOST': os.getenv('LOCAL_HOST', 'localhost'),
-        'PORT': 6379,
-        'DB': 0,
+        'PORT': int(os.getenv('REDIS_PORT', 6379)),
+        'DB': int(os.getenv('REDIS_DB', 0)),
         'PASSWORD': os.getenv('RQ_PASSWORD', None),
-        'DEFAULT_TIMEOUT': 360,
+        'USERNAME': os.getenv('REDIS_USERNAME', 'default'),
+        'DEFAULT_TIMEOUT': int(os.getenv('RQ_DEFAULT_TIMEOUT', 360)),
+        'SSL': os.getenv('REDIS_USE_SSL', 'False').lower() == 'true',
     }
 }
 

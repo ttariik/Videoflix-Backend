@@ -55,7 +55,7 @@ class ActivationView(APIView):
             if token_generator.check_token(user, token):
                 user.is_active = True
                 user.save()
-                return redirect(f"http://localhost:4200/login?success=account_activated")
+                return redirect(f"http://localhost:4200/login")
             else:
                 return redirect(f"http://localhost:4200/login?error=invalid_token")
         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
