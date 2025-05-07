@@ -4,37 +4,61 @@
 
 ## English
 
-### Overview
-VideoFlix is a powerful video streaming backend built with Django and Django REST Framework. It provides a robust API for video management, user authentication, and video processing capabilities.
+### What is VideoFlix?
+VideoFlix is a modern, feature-rich video streaming backend platform built with Django and Django REST Framework. It provides a robust API for video management, user authentication, and video processing capabilities, making it perfect for building video streaming applications.
 
-### Author
-This project was created by Tarik Sabanovic.
+### Key Features
+- **User Management**
+  - Secure user authentication
+  - Email verification
+  - Password reset functionality
+  - User profile management
 
-### Features
-- User Authentication and Authorization
-- Video Upload and Management
-- Video Processing and Thumbnail Generation
-- RESTful API Endpoints
-- Background Task Processing with RQ
-- Redis Caching
-- PostgreSQL Database Support
+- **Video Management**
+  - Video upload and storage
+  - Automatic video processing
+  - Multiple quality versions (120p, 360p, 720p, 1080p)
+  - Thumbnail generation
+  - Video categorization
+
+- **API Features**
+  - RESTful API endpoints
+  - Token-based authentication
+  - CORS support
+  - Rate limiting
+  - Pagination
+
+- **Background Processing**
+  - Asynchronous video processing
+  - Queue management with Redis
+  - Progress tracking
+
+### Technology Stack
+- **Backend Framework**: Django 5.1.7
+- **API Framework**: Django REST Framework
+- **Database**: PostgreSQL
+- **Cache & Queue**: Redis
+- **Video Processing**: FFmpeg, MoviePy
+- **Task Queue**: RQ (Redis Queue)
+- **Development Tools**: Black, Flake8, Pytest
 
 ### Prerequisites
 - Python 3.8 or higher
 - PostgreSQL
 - Redis
 - FFmpeg
+- Git
 
 ### Installation
 
 #### macOS Installation
 
-1. Install Homebrew (if not already installed):
+1. **Install Homebrew** (if not already installed):
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-2. Install required system dependencies:
+2. **Install System Dependencies**:
 ```bash
 # Install PostgreSQL
 brew install postgresql
@@ -48,139 +72,186 @@ brew services start redis
 brew install ffmpeg
 ```
 
-3. Clone the repository:
+3. **Clone the Repository**:
 ```bash
 git clone [repository-url]
 cd VideoFlix-Backend
 ```
 
-4. Create and activate a virtual environment:
+4. **Set Up Python Environment**:
 ```bash
+# Create virtual environment
 python -m venv env
-source env/bin/activate
-```
 
-5. Install dependencies:
-```bash
+# Activate virtual environment
+source env/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-6. Set up environment variables:
-Create a `.env` file in the root directory with the following variables:
-```
-DEBUG=True
-SECRET_KEY=your-secret-key
-DATABASE_URL=postgresql://user:password@localhost:5432/videoflix
-REDIS_URL=redis://localhost:6379/0
+5. **Configure Environment Variables**:
+```bash
+# Copy the template file
+cp .env.template .env
+
+# Edit the .env file with your settings
+nano .env  # or use your preferred editor
 ```
 
-7. Run migrations:
+6. **Set Up Database**:
 ```bash
+# Create database
+createdb videoflix
+
+# Run migrations
 python manage.py migrate
-```
 
-8. Create a superuser:
-```bash
+# Create superuser
 python manage.py createsuperuser
 ```
 
-### Running the Project on macOS
+#### Windows Installation
 
-1. Start Redis server (if not running):
+1. **Install Required Software**:
+   - Install [Python](https://www.python.org/downloads/)
+   - Install [PostgreSQL](https://www.postgresql.org/download/windows/)
+   - Install [Redis for Windows](https://github.com/microsoftarchive/redis/releases)
+   - Install [FFmpeg](https://ffmpeg.org/download.html)
+
+2. **Clone the Repository**:
 ```bash
+git clone [repository-url]
+cd VideoFlix-Backend
+```
+
+3. **Set Up Python Environment**:
+```bash
+# Create virtual environment
+python -m venv env
+
+# Activate virtual environment
+env\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+4. **Configure Environment Variables**:
+```bash
+# Copy the template file
+copy .env.template .env
+
+# Edit the .env file with your settings
+notepad .env  # or use your preferred editor
+```
+
+5. **Set Up Database**:
+```bash
+# Create database using pgAdmin or psql
+# Run migrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+```
+
+### Running the Project
+
+#### macOS
+```bash
+# Start Redis (if not running)
 brew services start redis
-```
 
-2. Start RQ worker:
-```bash
+# Start RQ worker
 python manage.py rqworker default
-```
 
-3. Run the development server:
-```bash
+# Run development server
 python manage.py runserver
 ```
 
-### API Endpoints
+#### Windows
+```bash
+# Start Redis server
+redis-server
 
-- Authentication:
-  - `/api/auth/register/` - User registration
-  - `/api/auth/login/` - User login
-  - `/api/auth/logout/` - User logout
+# Start RQ worker
+python manage.py rqworker default
 
-- Videos:
-  - `/api/videos/` - List and create videos
-  - `/api/videos/<id>/` - Retrieve, update, and delete specific video
-  - `/api/videos/<id>/thumbnail/` - Get video thumbnail
+# Run development server
+python manage.py runserver
+```
+
+### API Documentation
+The API documentation is available at `/api/docs/` when running the development server.
 
 ### Development
-
-The project uses:
-- Django 5.1.7
-- Django REST Framework
-- Redis for caching and background tasks
-- PostgreSQL as the database
-- RQ for background job processing
+- Use `black` for code formatting
+- Use `flake8` for linting
+- Run tests with `pytest`
 
 ### License
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-Copyright (c) 2024 Tarik Sabanovic
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 ---
 
 ## Deutsch
 
-### Übersicht
-VideoFlix ist ein leistungsstarkes Video-Streaming-Backend, das mit Django und Django REST Framework entwickelt wurde. Es bietet eine robuste API für Videoverwaltung, Benutzerauthentifizierung und Videoverarbeitung.
+### Was ist VideoFlix?
+VideoFlix ist eine moderne, funktionsreiche Video-Streaming-Backend-Plattform, die mit Django und Django REST Framework entwickelt wurde. Sie bietet eine robuste API für Videoverwaltung, Benutzerauthentifizierung und Videoverarbeitung, was sie perfekt für den Aufbau von Video-Streaming-Anwendungen macht.
 
-### Autor
-Dieses Projekt wurde von Tarik Sabanovic erstellt.
+### Hauptfunktionen
+- **Benutzerverwaltung**
+  - Sichere Benutzerauthentifizierung
+  - E-Mail-Verifizierung
+  - Passwort-Reset-Funktionalität
+  - Benutzerprofilverwaltung
 
-### Funktionen
-- Benutzerauthentifizierung und -autorisierung
-- Video-Upload und -Verwaltung
-- Videoverarbeitung und Thumbnail-Generierung
-- RESTful API-Endpunkte
-- Hintergrundaufgabenverarbeitung mit RQ
-- Redis-Caching
-- PostgreSQL-Datenbankunterstützung
+- **Videoverwaltung**
+  - Video-Upload und -Speicherung
+  - Automatische Videoverarbeitung
+  - Mehrere Qualitätsversionen (120p, 360p, 720p, 1080p)
+  - Thumbnail-Generierung
+  - Video-Kategorisierung
+
+- **API-Funktionen**
+  - RESTful API-Endpunkte
+  - Token-basierte Authentifizierung
+  - CORS-Unterstützung
+  - Rate-Limiting
+  - Paginierung
+
+- **Hintergrundverarbeitung**
+  - Asynchrone Videoverarbeitung
+  - Warteschlangenverwaltung mit Redis
+  - Fortschrittsverfolgung
+
+### Technologie-Stack
+- **Backend-Framework**: Django 5.1.7
+- **API-Framework**: Django REST Framework
+- **Datenbank**: PostgreSQL
+- **Cache & Queue**: Redis
+- **Videoverarbeitung**: FFmpeg, MoviePy
+- **Task-Queue**: RQ (Redis Queue)
+- **Entwicklungstools**: Black, Flake8, Pytest
 
 ### Voraussetzungen
 - Python 3.8 oder höher
 - PostgreSQL
 - Redis
 - FFmpeg
+- Git
 
 ### Installation
 
 #### macOS Installation
 
-1. Homebrew installieren (falls noch nicht installiert):
+1. **Homebrew installieren** (falls noch nicht installiert):
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-2. Erforderliche Systemabhängigkeiten installieren:
+2. **Systemabhängigkeiten installieren**:
 ```bash
 # PostgreSQL installieren
 brew install postgresql
@@ -194,88 +265,123 @@ brew services start redis
 brew install ffmpeg
 ```
 
-3. Repository klonen:
+3. **Repository klonen**:
 ```bash
 git clone [repository-url]
 cd VideoFlix-Backend
 ```
 
-4. Virtuelle Umgebung erstellen und aktivieren:
+4. **Python-Umgebung einrichten**:
 ```bash
+# Virtuelle Umgebung erstellen
 python -m venv env
-source env/bin/activate
-```
 
-5. Abhängigkeiten installieren:
-```bash
+# Virtuelle Umgebung aktivieren
+source env/bin/activate
+
+# Abhängigkeiten installieren
 pip install -r requirements.txt
 ```
 
-6. Umgebungsvariablen einrichten:
-Erstellen Sie eine `.env`-Datei im Hauptverzeichnis mit folgenden Variablen:
-```
-DEBUG=True
-SECRET_KEY=your-secret-key
-DATABASE_URL=postgresql://user:password@localhost:5432/videoflix
-REDIS_URL=redis://localhost:6379/0
+5. **Umgebungsvariablen konfigurieren**:
+```bash
+# Template-Datei kopieren
+cp .env.template .env
+
+# .env-Datei mit Ihren Einstellungen bearbeiten
+nano .env  # oder Ihren bevorzugten Editor verwenden
 ```
 
-7. Migrationen ausführen:
+6. **Datenbank einrichten**:
 ```bash
+# Datenbank erstellen
+createdb videoflix
+
+# Migrationen ausführen
 python manage.py migrate
-```
 
-8. Superuser erstellen:
-```bash
+# Superuser erstellen
 python manage.py createsuperuser
 ```
 
-### Projekt auf macOS starten
+#### Windows Installation
 
-1. Redis-Server starten (falls nicht läuft):
+1. **Erforderliche Software installieren**:
+   - [Python](https://www.python.org/downloads/) installieren
+   - [PostgreSQL](https://www.postgresql.org/download/windows/) installieren
+   - [Redis for Windows](https://github.com/microsoftarchive/redis/releases) installieren
+   - [FFmpeg](https://ffmpeg.org/download.html) installieren
+
+2. **Repository klonen**:
 ```bash
+git clone [repository-url]
+cd VideoFlix-Backend
+```
+
+3. **Python-Umgebung einrichten**:
+```bash
+# Virtuelle Umgebung erstellen
+python -m venv env
+
+# Virtuelle Umgebung aktivieren
+env\Scripts\activate
+
+# Abhängigkeiten installieren
+pip install -r requirements.txt
+```
+
+4. **Umgebungsvariablen konfigurieren**:
+```bash
+# Template-Datei kopieren
+copy .env.template .env
+
+# .env-Datei mit Ihren Einstellungen bearbeiten
+notepad .env  # oder Ihren bevorzugten Editor verwenden
+```
+
+5. **Datenbank einrichten**:
+```bash
+# Datenbank mit pgAdmin oder psql erstellen
+# Migrationen ausführen
+python manage.py migrate
+
+# Superuser erstellen
+python manage.py createsuperuser
+```
+
+### Projekt starten
+
+#### macOS
+```bash
+# Redis starten (falls nicht läuft)
 brew services start redis
-```
 
-2. RQ-Worker starten:
-```bash
+# RQ-Worker starten
 python manage.py rqworker default
-```
 
-3. Entwicklungsserver starten:
-```bash
+# Entwicklungsserver starten
 python manage.py runserver
 ```
 
-### API-Endpunkte
+#### Windows
+```bash
+# Redis-Server starten
+redis-server
 
-- Authentifizierung:
-  - `/api/auth/register/` - Benutzerregistrierung
-  - `/api/auth/login/` - Benutzeranmeldung
-  - `/api/auth/logout/` - Benutzerabmeldung
+# RQ-Worker starten
+python manage.py rqworker default
 
-- Videos:
-  - `/api/videos/` - Videos auflisten und erstellen
-  - `/api/videos/<id>/` - Bestimmtes Video abrufen, aktualisieren und löschen
-  - `/api/videos/<id>/thumbnail/` - Video-Thumbnail abrufen
+# Entwicklungsserver starten
+python manage.py runserver
+```
+
+### API-Dokumentation
+Die API-Dokumentation ist unter `/api/docs/` verfügbar, wenn der Entwicklungsserver läuft.
 
 ### Entwicklung
-
-Das Projekt verwendet:
-- Django 5.1.7
-- Django REST Framework
-- Redis für Caching und Hintergrundaufgaben
-- PostgreSQL als Datenbank
-- RQ für die Verarbeitung von Hintergrundjobs
+- `black` für Code-Formatierung verwenden
+- `flake8` für Linting verwenden
+- Tests mit `pytest` ausführen
 
 ### Lizenz
-
 Dieses Projekt ist unter der MIT-Lizenz lizenziert - siehe die [LICENSE](LICENSE) Datei für Details.
-
-Copyright (c) 2024 Tarik Sabanovic
-
-Hiermit wird jeder Person, die eine Kopie dieser Software und der zugehörigen Dokumentationsdateien (die "Software") erhält, kostenlos die Erlaubnis erteilt, mit der Software ohne Einschränkung zu handeln, einschließlich und ohne Einschränkung der Rechte zur Nutzung, Kopierung, Änderung, Zusammenführung, Veröffentlichung, Verbreitung, Unterlizenzierung und/oder zum Verkauf von Kopien der Software, und Personen, denen die Software zur Verfügung gestellt wird, diese unter den folgenden Bedingungen zu gestatten:
-
-Der obige Copyright-Hinweis und dieser Erlaubnishinweis müssen in allen Kopien oder wesentlichen Teilen der Software enthalten sein.
-
-DIE SOFTWARE WIRD "WIE BESEHEN" OHNE JEGLICHE AUSDRÜCKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, EINSCHLIESSLICH, ABER NICHT BESCHRÄNKT AUF DIE GARANTIEN DER MARKTGÄNGIGKEIT, EIGNUNG FÜR EINEN BESTIMMTEN ZWECK UND NICHTVERLETZUNG VON RECHTEN DRITTER. IN KEINEM FALL SIND DIE AUTOREN ODER COPYRIGHT-INHABER HAFTBAR FÜR JEGLICHE ANSPRÜCHE, SCHÄDEN ODER ANDERE HAFTUNG, OB IN EINER VERTRAGLICHEN HANDLUNG, UNERLAUBTER HANDLUNG ODER ANDERWEITIG, DIE AUS ODER IN VERBINDUNG MIT DER SOFTWARE ODER DER NUTZUNG ODER ANDEREN GESCHÄFTEN MIT DER SOFTWARE ENTSTEHEN.
