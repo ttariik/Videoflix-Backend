@@ -385,3 +385,5 @@ Die API-Dokumentation ist unter `/api/docs/` verfügbar, wenn der Entwicklungsse
 
 ### Lizenz
 Dieses Projekt ist unter der MIT-Lizenz lizenziert - siehe die [LICENSE](LICENSE) Datei für Details.
+
+Author: Tarik Sabanovic 
