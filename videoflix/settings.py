@@ -58,8 +58,8 @@ INSTALLED_APPS = [
     "debug_toolbar",
 ]
 
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000,http://localhost:4200').split(',')
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000,http://localhost:4200').split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000,http://localhost:4200,https://tarik-sabanovic.developerakademie.net/,https://tarik-sabanovic.developerakademie.net/login').split(',')
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000,http://localhost:4200,https://tarik-sabanovic.developerakademie.net/,https://tarik-sabanovic.developerakademie.net/login').split(',')
 
 # CORS settings
 CORS_ALLOW_CREDENTIALS = True
